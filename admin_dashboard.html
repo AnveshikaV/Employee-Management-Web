@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <style>
+    body {
+      background-color: rgb(215, 195, 195); /* Set the background color to white */
+      margin: 0; /* Remove default body margin */
+      padding: 0; /* Remove default body padding */
+    }
+
+    .container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      /* padding: 0 200px; */
+      padding-left: 1000px;
+      padding-right: 1000px;
+    }
+
+    .header-section {
+      position: relative;
+      height: 200px;
+      /* background-image: url("background.jpg"); */
+      background-size: cover;
+      background-position: center;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d7c7c7;
+      overflow: hidden;
+    }
+
+    .header-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .header-text {
+      font-size: 36px;
+      font-weight: 600;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeIn 2s ease-in-out forwards;
+      text-shadow: 8px 8px 16px  rgb(0, 0, 0) ;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-100px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding-top: 50px;
+    }
+
+
+    .form-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      transition: box-shadow 0.3s ease;
+      padding-left: 200px;
+      padding-right: 200px;
+    }
+    .form-group label {
+      flex-basis: 100%;
+      font-weight: bold;
+    }
+ 
+    .form-group .form-control {
+      flex-basis: 55%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .form-group .form-control:hover {
+      box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-group .form-control:first-child {
+      margin-right: 20px;
+    }
+
+    .text-center{
+      padding-left: 400px;
+      padding-right: 400px;
+    }
+    .btn-primary {
+      border-radius: 5px;
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      background-color: #2d2929;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 8px 8px 16px rgb(69, 55, 55);
+  
+    }
+   
+    .btn-primary:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      background-color: #4e7281; /* Adjust the hover background color */
+    }
+  </style>
+</head>
+<body>
+    <div class="header-section">
+  <div class="header-overlay"></div>
+  <h1 class="header-text">Hey! Now You Can Add Data</h1>
+</div>
+
+    <form>
+      <div class="form-group">
+        <input type="text" class="form-control" id="employeeId" placeholder="Employee ID" required>
+        <input type="text" class="form-control" id="employeeName" placeholder="Employee Name" required>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="personalId" placeholder="Personal ID" required>
+        <input type="text" class="form-control" id="dateOfBirth" placeholder="Date of Birth" required>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="phoneNumber" placeholder="Phone Number" required>
+        <input type="email" class="form-control" id="adminEmail" placeholder="Email" required>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="address" placeholder="Address" required>
+        <input type="text" class="form-control" id="qualification" placeholder="Qualification" required>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="currentExperience" placeholder="Current Experience" required>
+        <input type="text" class="form-control" id="jobStartDate" placeholder="Job Start Date" required>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="employeeType" placeholder="Employee Type" required>
+        <input type="text" class="form-control" id="gender" placeholder="Gender" required>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="timeShift" placeholder="Time Shift" required>
+        <input type="text" class="form-control" id="salary" placeholder="Salary" required>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="taxesApplied" placeholder="Taxes Applied" required>
+        <input type="text" class="form-control" id="insurance" placeholder="Insurance" required>
+      </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-primary" onclick="addEmployee()">Add Employee</button>
+      </div>
+    </form>
+ 
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="app.js"></script>
+  <!-- <script src="firebase.js"></script> -->
+</body>
+</html>
+

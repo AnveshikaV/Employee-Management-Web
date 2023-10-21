@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Data</title>
+  <link rel="stylesheet" type="text/css" href="fetch.css">
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+  <div class="container">
+    <header >
+      <h1>Here! Details Of All The Employees</h1>
+    </header>
+
+
+
+
+    <div>
+      <input type="text" id="searchInput" placeholder="Search by Employee Name">
+    </div>
+
+
+
+
+
+    <div id="employeeData" ></div>
+    
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="firebase.js"></script>
+  <!-- <script src="fetch.js"></script> -->
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      // Your Firebase config here
+      apiKey: "AIzaSyAktTEfiPN9R1NK0EQSVFaRCLMv7MzBvi8",
+  authDomain: "varanasi-987c3.firebaseapp.com",
+  projectId: "varanasi-987c3",
+  storageBucket: "varanasi-987c3.appspot.com",
+  messagingSenderId: "407197658056",
+  appId: "1:407197658056:web:249cc7171e94e90e1c6efd",
+  measurementId: "G-67SKYHQ2V6"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Fetch employee data
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        const uid = user.uid;
+        const employeeRef = firebase.database().ref("employees/YJWhZoMHIBPhp1CZQDwuuAI823C3/YgA0GKvIwHPrrO5cP3plw8mnngT2");
+
+        employeeRef.on("value", (snapshot) => {
+          const employeeData = snapshot.val();
+
+            if (employeeData) {
+              const employeeDataDiv = document.getElementById("employeeData");
+              const table = document.createElement("table");
+              table.classList.add("table");
+              const tableHeader = document.createElement("thead");
+              const tableHeaderRow = document.createElement("tr");
+
+              const headerAttributes = [
+                "Employee ID", "Employee Name", "Personal ID", "Date of Birth",
+                "Phone Number", "Email", "Address", "Qualification",
+                "Current Experience", "Job Start Date", "Employee Type",
+                "Gender", "Time Shift", "Salary", "Taxes Applied", "Insurance"
+              ];
+
+              headerAttributes.forEach(attribute => {
+                const headerCell = document.createElement("th");
+                headerCell.textContent = attribute;
+                tableHeaderRow.appendChild(headerCell);
+              });
+
+              tableHeader.appendChild(tableHeaderRow);
+              table.appendChild(tableHeader);
+
+              const tableBody = document.createElement("tbody");
+
+              snapshot.forEach((childSnapshot) => {
+                const employeeId = childSnapshot.key;
+                // const employeeName = childSnapshot.child("employeeName").val();
+                const employee = childSnapshot.val();
+
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                  <td>${employeeId}</td>
+                  <td>${employee.employeeName}</td>
+                  <td>${employee.personalId}</td>
+                  <td>${employee.dateOfBirth}</td>
+                  <td>${employee.phoneNumber}</td>
+                  <td>${employee.email}</td>
+                  <td>${employee.address}</td>
+                  <td>${employee.qualification}</td>
+                  <td>${employee.currentExperience}</td>
+                  <td>${employee.jobStartDate}</td>
+                  <td>${employee.employeeType}</td>
+                  <td>${employee.gender}</td>
+                  <td>${employee.timeShift}</td>
+                  <td>${employee.salary || ""}</td>
+                  <td>${employee.taxesApplied || ""}</td>
+                  <td>${employee.insurance || ""}</td>
+                `;
+
+                tableBody.appendChild(row);
+              });
+
+              table.appendChild(tableBody);
+              employeeDataDiv.appendChild(table);
+            } else {
+              console.log("No employee data found.");
+            }
+          });
+          // .catch((error) => {
+          //   console.error("Error fetching employee data:", error);
+          // });
+      } else {
+        console.log("User not logged in.");
+      }
+    });
+
+    // Search functionality
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("input", handleSearch);
+
+    function handleSearch() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const rows = document.querySelectorAll("tbody tr");
+
+      rows.forEach(row => {
+        const employeeName = row.cells[1].textContent.toLowerCase();
+        if (employeeName.includes(searchTerm)) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
+    }
+  </script>
+</body>
+</html>

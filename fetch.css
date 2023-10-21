@@ -1,0 +1,107 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #dad1d1;
+  margin: 0;
+  padding: 20px;
+  overflow-x: hidden; 
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #dadada;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+header {
+  background-color: #333333;
+  padding: 20px;
+  color: #ffffff;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  position: sticky;
+  top: 0;
+  width: 220%;/* Adjust the width to account for scrollbar width */
+  z-index: 1;
+}
+
+h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;; /* Add float property to make the text float from left to right */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #dddddd;
+  white-space: nowrap;
+}
+
+th {
+  background-color: #fafafa;
+  font-weight: 600;
+  min-width: 150px;
+}
+
+
+
+
+/* Add hover effect on table rows */
+tbody tr:hover {
+  background-color: #918c8c;
+}
+
+/* Add a box shadow to the table */
+table {
+  box-shadow: 8px 8px 16px rgba(66, 50, 50, 0.1);
+}
+
+/* Add border radius to the table */
+table {
+  border-radius: 5px;
+}
+
+/* Style the header text */
+th {
+  background-color: #8d8282;
+  text-decoration: wavy;
+  text-decoration-style: solid;
+  color: #000000;
+}
+
+/* Style the table cells */
+td {
+  text-decoration: solid;
+  text-decoration-style: solid;
+  color: #000000;
+}
+
+/* Add padding to the table cells */
+td {
+  padding: 100px 150px;
+}
+
+/* Add a subtle transition effect on hover */
+th, td {
+  transition: background-color 0.3s ease;
+}
+
+#searchInput {
+  background-color: rgb(221, 211, 211);
+  width: 50%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
