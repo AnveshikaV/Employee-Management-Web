@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<!-- Add this script tag to include the html2pdf.js library -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> -->
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+   </script>
+   <script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+   </script>
+   <script src=
+"https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
+   </script>
+
+
+  <style>
+    body {
+      background-color: rgb(215, 195, 195);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .header-section {
+      position: relative;
+      height: 200px;
+   
+      background-size: cover;
+      background-position: center;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d7c7c7;
+      overflow: hidden;
+    }
+
+    .header-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .header-text {
+      font-size: 36px;
+      font-weight: 600;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeIn 2s ease-in-out forwards;
+      text-shadow: 8px 8px 16px rgb(0, 0, 0);
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-100px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      max-width: 2000px;
+      margin: 0 auto;
+      padding-top: 50px;
+    }
+
+    .data-section {
+      margin-top: 50px;
+      background-color: #edcdcd;
+      padding: 20px;
+      border-radius: 8px;
+      width: 70%;
+      box-shadow: 8px 8px 16px rgb(0, 0, 0);
+      border: 3px solid #685f5f;
+    }
+    
+    .attribute label {
+      font-size: 15px;
+      font-style: oblique;
+      font-weight: bold;
+      color: rgb(0, 0, 0);
+    }
+
+    .attribute {
+      margin-bottom: 20px;
+    }
+
+    .attribute-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .attribute-col {
+      flex-basis: 48%;
+    }
+    .attribute span {
+      font-style: oblique;
+      /* font-family: Arial, sans-serif; */
+      font-size: 14px;
+        color: black;}
+
+
+
+        .email-section {
+    background-color: #e4baba;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    width: 30%;
+    
+
+    max-width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .email-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .user-email {
+    font-size: 16px;
+    font-style: italic ;
+    color: #333;
+  }
+
+
+
+
+
+
+  /* Style for the "Download PDF" button */
+  .report {
+  margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #d29e9e;
+    color: #000000;
+    cursor: pointer;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+  }
+
+  /* Hover effect for the button */
+  /* #report:hover {
+    background-color: #0056b3; 
+  }  */
+
+
+
+
+
+
+
+  </style>
+</head>
+
+<body>
+  <div class="header-section">
+    <div class="header-overlay"></div>
+    <h1 class="header-text">Hey! Here Is Your Data</h1>
+  </div>
+
+  
+    <!-- New block to show user's email -->
+    <div class="email-section">
+      <div class="email-title">Email:</div>
+      <div class="user-email" id="userEmail"></div>
+    </div>
+
+
+  <div id ="report" class="container">
+    <div class="data-section">
+      <div class="attribute-row">
+        <div class="attribute-col">
+          <div class="attribute">
+            <label>Employee ID:</label>
+            <span id="employeeId"></span>
+          </div>
+          <div class="attribute">
+            <label>Employee Name:</label>
+            <span id="employeeName"></span>
+          </div>
+        </div>
+        <div class="attribute-col">
+          <div class="attribute">
+            <label>Personal ID:</label>
+            <span id="personalId"></span>
+          </div>
+          <div class="attribute">
+            <label>Date of Birth:</label>
+            <span id="dateOfBirth"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="attribute-row">
+        <div class="attribute-col">
+          <div class="attribute">
+            <label>Phone Number:</label>
+            <span id="phoneNumber"></span>
+          </div>
+          <div class="attribute">
+            <label>Address:</label>
+            <span id="address"></span>
+          </div>
+        </div>
+        <div class="attribute-col">
+          <div class="attribute">
+            <label>Qualification:</label>
+            <span id="qualification"></span>
+          </div>
+          <div class="attribute">
+            <label>Current Experience:</label>
+            <span id="currentExperience"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="attribute-row">
+        <div class="attribute-col">
+          <div class="attribute">
+            <label>Job Start Date:</label>
+            <span id="jobStartDate"></span>
+          </div>
+          <div class="attribute">
+            <label>Type of Employee:</label>
+            <span id="employeeType"></span>
+          </div>
+        </div>
+        <div class="attribute-col">
+          <div class="attribute">
+            <label>Gender:</label>
+            <span id="gender"></span>
+          </div>
+          <div class="attribute">
+            <label>Time Shift:</label>
+            <span id="timeShift"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="attribute-row">
+        <div class="attribute-col">
+          <div class="attribute">
+            <label>Salary:</label>
+            <span id="salary"></span>
+          </div>
+          <div class="attribute">
+            <label>Taxes Applied:</label>
+            <span id="taxesApplied"></span>
+          </div>
+        </div>
+        <div class="attribute-col">
+          <div class="attribute">
+            <label>Money Deducted:</label>
+            <span id="moneyDeducted"></span>
+          </div>
+          <div class="attribute">
+            <label>Insurance:</label>
+            <span id="insurance"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="attribute-row">
+        <div class="attribute-col">
+          <div class="attribute">
+            <label>Incentives:</label>
+            <span id="incentives"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="dashboardData" style="display: none;"></div>
+
+
+  
+    <button class="report" onclick="generatePdf()">Download PDF</button>
+
+
+  </div>
+
+  
+
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script  type="text/javascript">
+      // Firebase configuration
+      const firebaseConfig = {
+        // Your Firebase config here
+        // ...
+        apiKey: "AIzaSyAktTEfiPN9R1NK0EQSVFaRCLMv7MzBvi8",
+      authDomain: "varanasi-987c3.firebaseapp.com",
+      databaseURL: "https://varanasi-987c3-default-rtdb.firebaseio.com",
+      projectId: "varanasi-987c3",
+      storageBucket: "varanasi-987c3.appspot.com",
+      messagingSenderId: "407197658056",
+      appId: "1:407197658056:web:249cc7171e94e90e1c6efd",
+      measurementId: "G-67SKYHQ2V6"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      // Function to fetch employee data based on user's email
+      function fetchEmployeeData(email) {
+
+
+        // return new Promise((resolve, reject) => {
+
+        const employeesRef = firebase.database().ref("employees/YJWhZoMHIBPhp1CZQDwuuAI823C3/YgA0GKvIwHPrrO5cP3plw8mnngT2");
+        employeesRef.orderByChild("email").equalTo(email).once("value")
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const data = snapshot.val();
+              const employeeData = Object.values(data)[0];
+
+              document.getElementById("employeeId").innerText = employeeData.employeeId || "";
+              document.getElementById("employeeName").innerText = employeeData.name || "";
+              document.getElementById("personalId").innerText = employeeData.personalId || "";
+              document.getElementById("dateOfBirth").innerText = employeeData.dateOfBirth || "";
+              document.getElementById("phoneNumber").innerText = employeeData.phoneNumber || "";
+              document.getElementById("address").innerText = employeeData.address || "";
+              document.getElementById("qualification").innerText = employeeData.qualification || "";
+              document.getElementById("currentExperience").innerText = employeeData.currentExperience || "";
+              document.getElementById("jobStartDate").innerText = employeeData.jobStartDate || "";
+              document.getElementById("employeeType").innerText = employeeData.employeeType || "";
+              document.getElementById("gender").innerText = employeeData.gender || "";
+              document.getElementById("timeShift").innerText = employeeData.timeShift || "";
+              document.getElementById("salary").innerText = employeeData.salary || "";
+              document.getElementById("taxesApplied").innerText = employeeData.taxesApplied || "";
+              document.getElementById("moneyDeducted").innerText = employeeData.moneyDeducted || "";
+              document.getElementById("insurance").innerText = employeeData.insurance || "";
+              document.getElementById("incentives").innerText = employeeData.incentives || "";
+
+
+              document.getElementById("userEmail").innerText = email;
+              document.getElementById("dashboardData").style.display = "block";
+            } else {
+              console.log("Employee data not found!");
+              document.getElementById("dashboardData").style.display = "none";
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+            document.getElementById("dashboardData").style.display = "none";
+          });
+      }
+
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          const email = user.email;
+          fetchEmployeeData(email); // Fetch employee data based on user's email
+        } else {
+          window.location.href = "user_login.html";
+        }
+      });
+
+function generatePdf  (){
+  const { jsPDF } = window.jspdf;
+ 
+ let doc = new jsPDF('l', 'mm', [1500, 1400]);
+ let pdfjs = document.querySelector('#report');
+
+ doc.html(pdfjs, {
+     callback: function(doc) {
+         doc.save("newpdf.pdf");
+     },
+     x: 12,
+     y: 12
+ });               
+} 
+
+    </script>
+  
+</body>
+</html>
+
